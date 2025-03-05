@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon App PWA</title>
 
-    <!-- 📌 Icônes et PWA -->
+    <!-- 📌 Configuration PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Mon App">
     <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
 
-    <!-- 📌 Couleurs pour la barre de statut -->
+    <!-- 📌 Couleur de la barre de statut -->
     <meta name="theme-color" content="#000000">
 
-    <!-- 📌 Styles (optionnel) -->
+    <!-- 📌 Styles CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Bienvenue sur Mon App !</h1>
     <p>Ajoutez cette application à votre écran d'accueil pour l'utiliser comme une vraie app.</p>
 
-    <!-- 📌 Script pour enregistrer le Service Worker -->
+    <!-- 📌 Script pour le Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
                 .then(() => console.log("Service Worker enregistré ✅"))
-                .catch((err) => console.error("Erreur lors de l'enregistrement du SW ❌", err));
+                .catch((err) => console.error("Erreur SW ❌", err));
         }
     </script>
 </body>
