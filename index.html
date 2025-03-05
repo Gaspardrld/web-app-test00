@@ -12,46 +12,44 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Karpov ✅</h1>
-      <p id="date"></p>
-    </header>
-    
-    <!-- Barre de progression -->
-    <div class="progress-container">
-      <div class="progress-bar"></div>
-    </div>
-    
-    <!-- Input et boutons -->
-    <div class="input-container">
-      <input type="text" id="task-input" placeholder="Ajoute une tâche..." autocomplete="off">
-      <button id="add-task-btn" title="Ajouter">➕</button>
-      <button id="voice-btn" title="Ajouter par voix">🎤</button>
-    </div>
-
-    <!-- Splash Screen -->
-    <div id="splash-screen">
-      <img src="icons/icon-512.png" alt="Logo Karpov" id="splash-logo" />
-    </div>
+  <!-- Splash Screen (écran d'ouverture) -->
+  <div id="splash-screen">
+    <img src="icons/icon-512.png" alt="Logo Karpov" id="splash-logo" />
+  </div>
   
-    <!-- Ton contenu principal ici -->
-    <div id="main-content" style="display:none;">
-      <!-- Le reste de ton contenu, comme la To-Do List -->
-    </div>
+  <!-- Contenu principal -->
+  <div id="main-content" style="display:none;">
+    <div class="container">
+      <header>
+        <h1>Karpov ✅</h1>
+        <p id="date"></p>
+      </header>
+      
+      <!-- Barre de progression -->
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+      
+      <!-- Input et boutons -->
+      <div class="input-container">
+        <input type="text" id="task-input" placeholder="Ajoute une tâche..." autocomplete="off">
+        <button id="add-task-btn" title="Ajouter">➕</button>
+        <button id="voice-btn" title="Ajouter par voix">🎤</button>
+      </div>
 
-    <!-- Filtres -->
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all">Toutes</button>
-      <button class="filter-btn" data-filter="active">Actives</button>
-      <button class="filter-btn" data-filter="completed">Terminées</button>
+      <!-- Filtres -->
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">Toutes</button>
+        <button class="filter-btn" data-filter="active">Actives</button>
+        <button class="filter-btn" data-filter="completed">Terminées</button>
+      </div>
+      
+      <!-- Liste des tâches -->
+      <ul id="task-list"></ul>
+      
+      <!-- Bouton pour tout supprimer -->
+      <button id="clear-all" title="Supprimer toutes les tâches">🗑️ Tout supprimer</button>
     </div>
-    
-    <!-- Liste des tâches -->
-    <ul id="task-list"></ul>
-    
-    <!-- Bouton pour tout supprimer -->
-    <button id="clear-all" title="Supprimer toutes les tâches">🗑️ Tout supprimer</button>
   </div>
 
   <!-- Script -->
