@@ -1,4 +1,4 @@
-/* Reset et typographie */
+/* Général */
 * {
   margin: 0;
   padding: 0;
@@ -13,8 +13,93 @@ body {
   align-items: center;
   height: 100vh;
   color: #fff;
+  overflow: hidden; /* Evite les barres de défilement visibles pendant le splash screen */
+  background-color: #000;
 }
 
+/* Splash Screen */
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000; /* Fond noir */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  animation: fadeOutSplash 3s ease-out forwards; /* Animation de disparition de l'écran */
+}
+
+#logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: logoAnimation 2.5s ease-out forwards;
+}
+
+#splash-logo {
+  width: 200px;
+  animation: rotateZoom 2s ease-out infinite; /* Rotation et zoom sur le logo */
+  transform-origin: center;
+}
+
+/* Animation du logo (Zoom + Rotation) */
+@keyframes rotateZoom {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+/* Animation de disparition du Splash Screen */
+@keyframes fadeOutSplash {
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Animation de l'apparition du contenu principal */
+#main-content {
+  display: none;
+  opacity: 0;
+  animation: fadeInContent 2s ease-out forwards;
+}
+
+@keyframes fadeInContent {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Fond dynamique derrière le Splash Screen */
+@keyframes dynamicBackground {
+  0% {
+    background: linear-gradient(45deg, #1f1c2c, #928DAB);
+  }
+  50% {
+    background: linear-gradient(45deg, #4f4e6d, #242A38);
+  }
+  100% {
+    background: linear-gradient(45deg, #1f1c2c, #928DAB);
+  }
+}
+
+/* Autres animations et effets sur les boutons, barres de progression, etc. */
 .container {
   width: 90%;
   max-width: 500px;
@@ -24,27 +109,20 @@ body {
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
   text-align: center;
-  animation: fadeIn 0.6s ease-in-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* Header */
 header h1 {
-  font-size: 2em;
+  font-size: 2.5em;
   color: #ffcc00;
   margin-bottom: 5px;
 }
+
 header p {
-  font-size: 0.9em;
+  font-size: 1.1em;
   opacity: 0.8;
   margin-bottom: 15px;
 }
 
-/* Progression */
 .progress-container {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
@@ -52,6 +130,7 @@ header p {
   margin-bottom: 15px;
   height: 10px;
 }
+
 .progress-bar {
   height: 10px;
   width: 0%;
@@ -59,7 +138,6 @@ header p {
   transition: width 0.3s ease;
 }
 
-/* Input et boutons */
 .input-container {
   display: flex;
   gap: 10px;
@@ -83,16 +161,18 @@ button {
   font-size: 1em;
   transition: background 0.3s;
 }
+
 button:hover {
   background: #ffaa00;
 }
 
-/* Filtres */
+/* Autres styles pour les filtres et les tâches */
 .filters {
   display: flex;
   justify-content: space-around;
   margin-bottom: 15px;
 }
+
 .filter-btn {
   background: transparent;
   border: 1px solid #ffcc00;
@@ -101,18 +181,19 @@ button:hover {
   color: #ffcc00;
   transition: background 0.3s, color 0.3s;
 }
+
 .filter-btn.active, .filter-btn:hover {
   background: #ffcc00;
   color: #1f1c2c;
 }
 
-/* Liste des tâches */
 #task-list {
   list-style: none;
   max-height: 40vh;
   overflow-y: auto;
   margin-bottom: 15px;
 }
+
 .task-item {
   background: rgba(255, 255, 255, 0.15);
   padding: 12px;
@@ -124,130 +205,22 @@ button:hover {
   transition: transform 0.2s;
   position: relative;
 }
+
 .task-item:hover {
   transform: scale(1.02);
 }
+
 .task-item.completed {
   text-decoration: line-through;
   opacity: 0.6;
 }
-.task-item button {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 1.2em;
-  margin-left: 8px;
-  transition: color 0.3s;
-}
-.task-item button:hover {
-  color: #ff4444;
-}
 
-/* Bouton tout supprimer */
 #clear-all {
   width: 100%;
   background: #ff4444;
   transition: background 0.3s;
 }
+
 #clear-all:hover {
   background: #cc0000;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-#splash-logo {
-  width: 120px;
-  animation: spin 3s linear infinite; /* Rotation infinie */
-}
-
-
-@media (max-width: 480px) {
-  .container {
-    width: 95%;
-    padding: 15px;
-  }
-
-  header h1 {
-    font-size: 1.8em;
-  }
-  
-  .input-container {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .input-container input, 
-  .input-container button {
-    width: 100%;
-    font-size: 1em;
-    padding: 10px;
-  }
-  
-  .filters {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .filter-btn {
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-  }
-  
-  #clear-all {
-    font-size: 1em;
-    padding: 10px;
-  }
-  /* Style pour l'écran d'ouverture */
-  #splash-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #fff; /* Couleur d'arrière-plan */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Assure-toi que l'écran est au-dessus de tout */
-    opacity: 1;
-    animation: fadeOut 2s ease-out forwards; /* Animation de fondu */
-  }
-  
-  /* Animation du logo */
-  #splash-logo {
-    width: 120px; /* Taille du logo */
-    animation: zoomIn 1s ease-out forwards;
-  }
-  
-  /* Animation de fondu de l'écran d'ouverture */
-  @keyframes fadeOut {
-    100% {
-      opacity: 0;
-      visibility: hidden;
-    }
-  }
-  
-  /* Animation de zoom du logo */
-  @keyframes zoomIn {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  
-/* Cacher le contenu principal au début */
-#main-content {
-  display: none;
 }
