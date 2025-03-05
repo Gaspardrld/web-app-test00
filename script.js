@@ -92,6 +92,16 @@ document.addEventListener("DOMContentLoaded", () => {
     renderTasks();
   }
 
+    // Attendre que l'écran d'ouverture disparaisse avant de charger le contenu principal
+  window.onload = function () {
+    setTimeout(function () {
+      // Cacher l'écran d'ouverture
+      document.getElementById("splash-screen").style.display = "none";
+      // Afficher le contenu principal
+      document.getElementById("main-content").style.display = "block";
+    }, 3000); // Temps en millisecondes avant de changer d'écran (3 secondes)
+  };
+
   // Reconnaissance vocale
   function startSpeechRecognition() {
     if (!('webkitSpeechRecognition' in window)) {
