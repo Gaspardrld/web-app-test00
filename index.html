@@ -5,31 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karpov</title>
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Ajouter le lien vers le fichier manifest -->
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
+
     <div class="container">
-        <h1>Ma To-Do List</h1>
-        <input type="text" id="task-input" placeholder="Ajouter une nouvelle tâche...">
-        <button id="add-task-btn">Ajouter</button>
+        <h1>Ma To-Do List ✅</h1>
+        <div class="input-container">
+            <input type="text" id="task-input" placeholder="Ajouter une tâche...">
+            <button id="add-task-btn">➕</button>
+        </div>
         <ul id="task-list"></ul>
+        <button id="clear-all">🗑️ Tout Supprimer</button>
     </div>
 
     <script src="script.js"></script>
 
-    <!-- Enregistrer le Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
-            .then(function(registration) {
-                console.log('Service Worker enregistré avec succès:', registration);
-            })
-            .catch(function(error) {
-                console.log('Échec de l\'enregistrement du Service Worker:', error);
-            });
+            .then(reg => console.log('Service Worker enregistré'))
+            .catch(err => console.log('Échec SW:', err));
         }
     </script>
+
 </body>
 </html>
