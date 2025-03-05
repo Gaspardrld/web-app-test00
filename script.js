@@ -36,13 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderTasks() {
     taskList.innerHTML = "";
     tasks.forEach((task, index) => {
-      if ((currentFilter === "active" && task.completed) || (currentFilter === "completed" && !task.completed)) return;
+      if ((currentFilter === "active" && task.completed) ||
+          (currentFilter === "completed" && !task.completed)) return;
 
       const li = document.createElement("li");
       li.className = "task-item" + (task.completed ? " completed" : "");
       li.innerHTML = `<span>${task.text}</span>`;
 
-      // Bouton de basculement état
+      // Bouton de basculement d'état
       const toggleBtn = document.createElement("button");
       toggleBtn.innerHTML = "✅";
       toggleBtn.onclick = (e) => {
@@ -92,14 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderTasks();
   }
 
-  // Attendre que l'écran d'ouverture disparaisse avant de charger le contenu principal
-  setTimeout(function () {
-    // Cacher l'écran d'ouverture
-    document.getElementById("splash-screen").style.display = "none";
-    // Afficher le contenu principal
-    document.getElementById("main-content").style.display = "block";
-  }, 3000); // Temps en millisecondes avant de changer d'écran (3 secondes)
-
   // Reconnaissance vocale
   function startSpeechRecognition() {
     if (!('webkitSpeechRecognition' in window)) {
@@ -141,4 +134,12 @@ document.addEventListener("DOMContentLoaded", () => {
   updateDate();
   renderTasks();
   updateProgress();
+
+  // Retirer le splash screen et afficher le contenu principal après 5 secondes
+  setTimeout(() => {
+    const splash = document.getElementById("splash-screen");
+    if (splash) splash.parentNode.removeChild(splash);
+    const mainContent = document.getElementById("main-content");
+    mainContent.classList.remove("hidden");
+  }, 5000);
 });
