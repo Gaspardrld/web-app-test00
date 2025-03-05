@@ -74,9 +74,8 @@ body {
 
 /* --- Conteneur de l'app --- */
 .container {
-  width: 100%;
+  width: 100vh;
   max-width: none;
-  min-height: 100vh;
   background: rgba(20, 20, 30, 0.7);
   padding: 20px;
   border-radius: 15px;
