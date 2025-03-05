@@ -37,11 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
     taskList.innerHTML = "";
     tasks.forEach((task, index) => {
       if ((currentFilter === "active" && task.completed) || (currentFilter === "completed" && !task.completed)) return;
-      
+
       const li = document.createElement("li");
       li.className = "task-item" + (task.completed ? " completed" : "");
       li.innerHTML = `<span>${task.text}</span>`;
-      
+
       // Bouton de basculement état
       const toggleBtn = document.createElement("button");
       toggleBtn.innerHTML = "✅";
@@ -92,15 +92,13 @@ document.addEventListener("DOMContentLoaded", () => {
     renderTasks();
   }
 
-    // Attendre que l'écran d'ouverture disparaisse avant de charger le contenu principal
-  window.onload = function () {
-    setTimeout(function () {
-      // Cacher l'écran d'ouverture
-      document.getElementById("splash-screen").style.display = "none";
-      // Afficher le contenu principal
-      document.getElementById("main-content").style.display = "block";
-    }, 3000); // Temps en millisecondes avant de changer d'écran (3 secondes)
-  };
+  // Attendre que l'écran d'ouverture disparaisse avant de charger le contenu principal
+  setTimeout(function () {
+    // Cacher l'écran d'ouverture
+    document.getElementById("splash-screen").style.display = "none";
+    // Afficher le contenu principal
+    document.getElementById("main-content").style.display = "block";
+  }, 3000); // Temps en millisecondes avant de changer d'écran (3 secondes)
 
   // Reconnaissance vocale
   function startSpeechRecognition() {
