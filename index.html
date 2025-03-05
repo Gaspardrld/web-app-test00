@@ -4,23 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Karpov - To-Do Pro</title>
-
   <!-- Apple Touch Icon -->
   <link rel="apple-touch-icon" href="icons/icon-512.png">
-
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <!-- Splash Screen (écran d'ouverture) -->
+  <!-- Splash Screen -->
   <div id="splash-screen">
     <div id="logo-container">
       <img src="icons/icon-512.png" alt="Logo Karpov" id="splash-logo" />
     </div>
   </div>
   
-  <!-- Contenu principal -->
-  <div id="main-content" style="display:none;">
+  <!-- Main Content -->
+  <div id="main-content" class="hidden">
     <div class="container">
       <header>
         <h1>Karpov ✅</h1>
@@ -54,11 +52,10 @@
     </div>
   </div>
 
-  <!-- Script -->
-  <script src="scripts.js"></script>
-
-  <!-- Enregistrement du Service Worker -->
+  <!-- Scripts -->
+  <script src="script.js"></script>
   <script>
+    // Enregistrement du Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js')
         .then(reg => console.log('Service Worker enregistré', reg))
