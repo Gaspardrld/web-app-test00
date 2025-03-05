@@ -1,7 +1,6 @@
 {
   "name": "Karpov",
-  "short_name": "ToDo",
-  "description": "Une simple application de To-Do List pour organiser vos tâches.",
+  "short_name": "Karpov",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
