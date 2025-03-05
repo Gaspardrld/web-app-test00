@@ -1,41 +1,53 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karpov - To-Do Pro</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-    <script defer src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karpov - To-Do Pro</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <div class="container">
-        <h1>Karpov ✅</h1>
-        <p id="date"></p>
-
-        <!-- Barre de progression -->
-        <div class="progress-container">
-            <div class="progress-bar"></div>
-        </div>
-
-        <!-- Champ d'ajout -->
-        <div class="input-container">
-            <input type="text" id="task-input" placeholder="Ajoute une tâche...">
-            <button id="add-task-btn">➕</button>
-            <button id="voice-btn">🎤</button>
-        </div>
-
-        <!-- Filtres -->
-        <div class="filters">
-            <button class="filter-btn active" data-filter="all">Toutes</button>
-            <button class="filter-btn" data-filter="active">Actives</button>
-            <button class="filter-btn" data-filter="completed">Terminées</button>
-        </div>
-
-        <!-- Liste des tâches -->
-        <ul id="task-list"></ul>
-
-        <button id="clear-all">🗑️ Tout supprimer</button>
+  <div class="container">
+    <header>
+      <h1>Karpov ✅</h1>
+      <p id="date"></p>
+    </header>
+    
+    <!-- Barre de progression -->
+    <div class="progress-container">
+      <div class="progress-bar"></div>
     </div>
+    
+    <!-- Input et boutons -->
+    <div class="input-container">
+      <input type="text" id="task-input" placeholder="Ajoute une tâche..." autocomplete="off">
+      <button id="add-task-btn" title="Ajouter">➕</button>
+      <button id="voice-btn" title="Ajouter par voix">🎤</button>
+    </div>
+    
+    <!-- Filtres -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Toutes</button>
+      <button class="filter-btn" data-filter="active">Actives</button>
+      <button class="filter-btn" data-filter="completed">Terminées</button>
+    </div>
+    
+    <!-- Liste des tâches -->
+    <ul id="task-list"></ul>
+    
+    <!-- Bouton pour tout supprimer -->
+    <button id="clear-all" title="Supprimer toutes les tâches">🗑️ Tout supprimer</button>
+  </div>
+
+  <script defer src="script.js"></script>
+  <!-- Enregistrement du Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('Service Worker enregistré', reg))
+        .catch(err => console.error('Erreur SW:', err));
+    }
+  </script>
 </body>
 </html>
