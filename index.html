@@ -3,31 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon App PWA</title>
-
-    <!-- 📌 Configuration PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Mon App">
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
-
-    <!-- 📌 Couleur de la barre de statut -->
-    <meta name="theme-color" content="#000000">
-
-    <!-- 📌 Styles CSS -->
+    <title>Karpov</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Ajouter le lien vers le fichier manifest -->
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <h1>Bienvenue sur Mon App !</h1>
-    <p>Ajoutez cette application à votre écran d'accueil pour l'utiliser comme une vraie app.</p>
+    <div class="container">
+        <h1>Ma To-Do List</h1>
+        <input type="text" id="task-input" placeholder="Ajouter une nouvelle tâche...">
+        <button id="add-task-btn">Ajouter</button>
+        <ul id="task-list"></ul>
+    </div>
 
-    <!-- 📌 Script pour le Service Worker -->
+    <script src="script.js"></script>
+
+    <!-- Enregistrer le Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(() => console.log("Service Worker enregistré ✅"))
-                .catch((err) => console.error("Erreur SW ❌", err));
+            navigator.serviceWorker.register('sw.js')
+            .then(function(registration) {
+                console.log('Service Worker enregistré avec succès:', registration);
+            })
+            .catch(function(error) {
+                console.log('Échec de l\'enregistrement du Service Worker:', error);
+            });
         }
     </script>
 </body>
