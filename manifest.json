@@ -1,7 +1,7 @@
 {
   "name": "Karpov",
   "short_name": "Karpov",
-  "description": "La meilleure to-do list !",
+  "description": "La meilleure To-Do List ultra avancée avec Profil et Paramètres",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#1f1c2c",
