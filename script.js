@@ -1,13 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const splashScreen = document.getElementById("splash-screen");
-  const splashLogo = document.getElementById("splash-logo");
-  const mainContent = document.getElementById("main-content");
-
-  splashLogo.addEventListener("click", function () {
-    splashScreen.style.display = "none";
-    mainContent.style.display = "block";
-  });
-
   // Mode Sombre
   const darkModeToggle = document.getElementById("dark-mode-toggle");
   darkModeToggle.addEventListener("change", function () {
