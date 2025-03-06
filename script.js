@@ -1,22 +1,25 @@
-  // Mode Sombre
-  const darkModeToggle = document.getElementById("dark-mode-toggle");
-  darkModeToggle.addEventListener("change", function () {
-    document.body.classList.toggle("dark-mode", darkModeToggle.checked);
-  });
+// Mode Sombre
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+darkModeToggle.addEventListener("change", function () {
+  document.body.classList.toggle("dark-mode", darkModeToggle.checked);
+});
 
-  // Ajouter une tâche
-  const taskInput = document.getElementById("task-input");
-  const addTaskBtn = document.getElementById("add-task-btn");
-  const taskList = document.getElementById("task-list");
+// Ajouter une tâche
+const taskInput = document.getElementById("task-input");
+const addTaskBtn = document.getElementById("add-task-btn");
+const taskList = document.getElementById("task-list");
 
-  addTaskBtn.addEventListener("click", function () {
-    if (taskInput.value.trim() !== "") {
-      const li = document.createElement("li");
-      li.textContent = taskInput.value;
-      taskList.appendChild(li);
-      taskInput.value = "";
-    }
-    if ("serviceWorker" in navigator) {
+addTaskBtn.addEventListener("click", function () {
+  if (taskInput.value.trim() !== "") {
+    const li = document.createElement("li");
+    li.textContent = taskInput.value;
+    taskList.appendChild(li);
+    taskInput.value = "";
+  }
+});
+
+// Enregistrement du Service Worker
+if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js")
     .then(reg => {
       console.log("Service Worker enregistré", reg);
@@ -56,7 +59,3 @@ function showUpdateNotification() {
     window.location.reload();
   });
 }
-
-  });
-
-});
