@@ -237,5 +237,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (splash) splash.parentNode.removeChild(splash);
     const mainContent = document.getElementById("main-content");
     mainContent.classList.remove("hidden");
-  }, 5000);
+  }, 2000);
 });
