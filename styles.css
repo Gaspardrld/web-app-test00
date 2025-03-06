@@ -42,7 +42,6 @@ body {
   width: 150px;
 }
 
-/* Animation du logo */
 @keyframes logoRotate {
   0% {
     transform: rotate(0deg) scale(0);
@@ -73,7 +72,7 @@ body {
   to { opacity: 1; }
 }
 
-/* --- Conteneur de l'app --- */
+/* --- Conteneur de l'App --- */
 .container {
   width: 90%;
   max-width: 500px;
@@ -113,6 +112,34 @@ header p {
   transition: width 0.3s ease;
 }
 
+/* --- Navigation des Onglets --- */
+.nav-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+.tab-btn {
+  background: transparent;
+  border: 1px solid #ffcc00;
+  padding: 8px 12px;
+  border-radius: 20px;
+  color: #ffcc00;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.tab-btn.active, .tab-btn:hover {
+  background: #ffcc00;
+  color: #1f1c2c;
+}
+
+/* --- Sections (To-Do, Profil, Paramètres) --- */
+section {
+  display: none;
+}
+section.active {
+  display: block;
+}
+
 /* --- Input et Boutons --- */
 .input-container {
   display: flex;
@@ -139,7 +166,7 @@ button:hover {
   background: #ffaa00;
 }
 
-/* --- Filtres --- */
+/* --- Filtres To-Do --- */
 .filters {
   display: flex;
   justify-content: space-around;
@@ -209,6 +236,30 @@ button:hover {
   margin-bottom: 8px;
 }
 
+/* --- Section Paramètres --- */
+#settings-section {
+  text-align: left;
+  padding: 15px;
+}
+#settings-section h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #ffcc00;
+}
+.setting-item {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.setting-item label {
+  font-size: 1em;
+}
+.setting-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
 /* --- Responsive pour Petits Écrans --- */
 @media (max-width: 480px) {
   .container {
@@ -228,11 +279,11 @@ button:hover {
     font-size: 1em;
     padding: 10px;
   }
-  .filters {
+  .nav-tabs {
     flex-direction: column;
     gap: 8px;
   }
-  .filter-btn {
+  .tab-btn {
     width: 100%;
     padding: 10px;
     font-size: 1em;
