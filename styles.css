@@ -19,12 +19,8 @@ body {
 
 
 /* --- Main Content --- */
-.hidden {
-  display: none;
-}
-
 #main-content {
-  opacity: 0;
+  opacity: 1;
   animation: mainFadeIn 1s ease-out forwards;
 }
 
