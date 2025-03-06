@@ -1,56 +1,72 @@
-/* Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+document.addEventListener("DOMContentLoaded", function () {
+  const splashScreen = document.getElementById("splash-screen");
+  const splashLogo = document.getElementById("splash-logo");
+  const mainContent = document.getElementById("main-content");
 
-body {
-  background: linear-gradient(135deg, #1f1c2c, #928DAB);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+  splashLogo.addEventListener("click", function () {
+    splashScreen.style.display = "none";
+    mainContent.style.display = "block";
+  });
+
+  // Mode Sombre
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+  darkModeToggle.addEventListener("change", function () {
+    document.body.classList.toggle("dark-mode", darkModeToggle.checked);
+  });
+
+  // Ajouter une tâche
+  const taskInput = document.getElementById("task-input");
+  const addTaskBtn = document.getElementById("add-task-btn");
+  const taskList = document.getElementById("task-list");
+
+  addTaskBtn.addEventListener("click", function () {
+    if (taskInput.value.trim() !== "") {
+      const li = document.createElement("li");
+      li.textContent = taskInput.value;
+      taskList.appendChild(li);
+      taskInput.value = "";
+    }
+    if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+    .then(reg => {
+      console.log("Service Worker enregistré", reg);
+
+      // Vérifier si un nouveau SW est disponible
+      if (reg.waiting) {
+        showUpdateNotification();
+      }
+
+      reg.onupdatefound = () => {
+        const newWorker = reg.installing;
+        newWorker.onstatechange = () => {
+          if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+            showUpdateNotification();
+          }
+        };
+      };
+    })
+    .catch(err => console.error("Erreur SW:", err));
 }
 
-/* Splash Screen */
-#splash-screen {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 9999;
+function showUpdateNotification() {
+  const updateBanner = document.createElement("div");
+  updateBanner.innerHTML = `
+    <div class="update-banner">
+      Une mise à jour est dispo ! <button id="reload">Recharger</button>
+    </div>
+  `;
+  document.body.appendChild(updateBanner);
+
+  document.getElementById("reload").addEventListener("click", () => {
+    navigator.serviceWorker.getRegistration().then(reg => {
+      if (reg.waiting) {
+        reg.waiting.postMessage({ type: "SKIP_WAITING" });
+      }
+    });
+    window.location.reload();
+  });
 }
 
-#splash-logo {
-  width: 150px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
+  });
 
-#splash-logo:hover { transform: scale(1.1); }
-
-#splash-text {
-  margin-top: 10px;
-  font-size: 1.2em;
-  animation: blink 1.5s infinite;
-}
-
-@keyframes blink { 50% { opacity: 0.3; } }
-
-/* Conteneur principal */
-.container {
-  width: 90%;
-  max-width: 500px;
-  background: rgba(20, 20, 30, 0.7);
-  padding: 20px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  text-align: center;
-}
-
-/* Mode sombre */
-.dark-mode { background: #111 !important; color: white !important; }
-
+});
