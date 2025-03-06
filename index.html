@@ -4,91 +4,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Karpov - To-Do Pro</title>
-  
-  <!-- Apple Touch Icon -->
-  <link rel="apple-touch-icon" href="icons/icon-512.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+
   <!-- Splash Screen -->
   <div id="splash-screen">
-    <div id="logo-container">
-      <img src="icons/icon-512.png" alt="Logo Karpov" id="splash-logo">
-    </div>
-  </div>
-  
-  <!-- Main Content -->
-  <div id="main-content" class="hidden">
-    <div class="container">
-      <header>
-        <h1>Karpov ✅</h1>
-        <p id="date"></p>
-      </header>
-      
-      <!-- Barre de progression -->
-      <div class="progress-container">
-        <div class="progress-bar"></div>
-      </div>
-      
-      <!-- Navigation des Sections -->
-      <nav class="nav-tabs">
-        <button class="tab-btn active" data-tab="todo">To-Do</button>
-        <button class="tab-btn" data-tab="profile">Profil</button>
-        <button class="tab-btn" data-tab="settings">Paramètres</button>
-      </nav>
-      
-      <!-- Section To-Do -->
-      <section id="todo-section">
-        <div class="input-container">
-          <input type="text" id="task-input" placeholder="Ajoute une tâche..." autocomplete="off">
-          <button id="add-task-btn" title="Ajouter">➕</button>
-          <button id="voice-btn" title="Ajouter par voix">🎤</button>
-        </div>
-        <!-- Filtres To-Do -->
-        <div class="filters">
-          <button class="filter-btn active" data-filter="all">Toutes</button>
-          <button class="filter-btn" data-filter="active">Actives</button>
-          <button class="filter-btn" data-filter="completed">Terminées</button>
-        </div>
-        <!-- Liste des Tâches -->
-        <ul id="task-list"></ul>
-        <!-- Bouton pour tout supprimer -->
-        <button id="clear-all" title="Supprimer toutes les tâches">🗑️ Tout supprimer</button>
-      </section>
-      
-      <!-- Section Profil -->
-      <section id="profile-section" class="hidden">
-        <h2>Mon Profil</h2>
-        <p>Nom : Utilisateur</p>
-        <p>Email : utilisateur@example.com</p>
-        <button id="edit-profile-btn">Modifier le profil</button>
-      </section>
-      
-      <!-- Section Paramètres -->
-      <section id="settings-section" class="hidden">
-        <h2>Paramètres</h2>
-        <div class="setting-item">
-          <label for="theme-toggle">Mode Nuit/Jour</label>
-          <input type="checkbox" id="theme-toggle">
-        </div>
-        <div class="setting-item">
-          <label for="notif-toggle">Activer les notifications</label>
-          <input type="checkbox" id="notif-toggle">
-        </div>
-        <button id="reset-data-btn">Réinitialiser les données</button>
-      </section>
+    <div id="splash-content">
+      <img src="icons/icon-512.png" alt="Logo Karpov" id="splash-logo" />
+      <p id="splash-text">Appuyez pour continuer</p>
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="scripts.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(reg => console.log('Service Worker enregistré', reg))
-        .catch(err => console.error('Erreur SW:', err));
-    }
-  </script>
+  <!-- Contenu principal -->
+  <div id="main-content" style="display: none;">
+    <header>
+      <h1>Karpov ✅</h1>
+      <p id="date"></p>
+    </header>
+    
+    <!-- Barre de progression -->
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+
+    <!-- Input et boutons -->
+    <div class="input-container">
+      <input type="text" id="task-input" placeholder="Ajoute une tâche..." autocomplete="off">
+      <button id="add-task-btn">➕</button>
+      <button id="voice-btn">🎤</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+      <button class="nav-btn active" data-tab="tasks">📋 To-Do</button>
+      <button class="nav-btn" data-tab="profile">👤 Profil</button>
+      <button class="nav-btn" data-tab="settings">⚙️ Paramètres</button>
+    </nav>
+
+    <!-- Onglets -->
+    <div id="tasks-tab" class="tab active">
+      <ul id="task-list"></ul>
+      <button id="clear-all">🗑️ Tout supprimer</button>
+    </div>
+    
+    <div id="profile-tab" class="tab">
+      <h2>Profil</h2>
+      <p>Nom : <span id="user-name">Utilisateur</span></p>
+      <button id="edit-profile">Modifier</button>
+    </div>
+
+    <div id="settings-tab" class="tab">
+      <h2>Paramètres</h2>
+      <label>
+        <input type="checkbox" id="dark-mode-toggle">
+        Activer le mode sombre
+      </label>
+    </div>
+  </div>
+
+  <script defer src="script.js"></script>
+
 </body>
 </html>
