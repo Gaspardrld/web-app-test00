@@ -21,12 +21,6 @@ body {
 /* --- Main Content --- */
 #main-content {
   opacity: 1;
-  animation: mainFadeIn 1s ease-out forwards;
-}
-
-@keyframes mainFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 /* --- Conteneur de l'App --- */
