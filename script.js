@@ -8,11 +8,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const filters = document.querySelectorAll(".filter-btn");
   const dateElement = document.getElementById("date");
   const progressBar = document.querySelector(".progress-bar");
+  const profileSection = document.getElementById("profile-section");
+  const todoSection = document.getElementById("todo-section");
 
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   let currentFilter = "all";
 
-  // Affichage de la date
+  // Demande de permission pour les notifications
+  function requestNotificationPermission() {
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission().then(permission => {
+        console.log("Permission notifications :", permission);
+      });
+    }
+  }
+
+  // Envoi d'une notification locale
+  function sendNotification(taskText) {
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("Nouvelle tâche ajoutée", {
+        body: taskText,
+        icon: "icons/icon-512.png"
+      });
+    }
+  }
+
+  // Mise à jour de la date
   function updateDate() {
     const options = { weekday: "long", day: "numeric", month: "long" };
     dateElement.innerText = new Date().toLocaleDateString("fr-FR", options);
@@ -32,13 +53,14 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgress();
   }
 
-  // Rendu des tâches selon le filtre
+  // Rendu des tâches (uniquement si filtre est différent de "profile")
   function renderTasks() {
+    if (currentFilter === "profile") return; // Ne pas afficher les tâches en mode profil
     taskList.innerHTML = "";
     tasks.forEach((task, index) => {
       if ((currentFilter === "active" && task.completed) ||
           (currentFilter === "completed" && !task.completed)) return;
-
+      
       const li = document.createElement("li");
       li.className = "task-item" + (task.completed ? " completed" : "");
       li.innerHTML = `<span>${task.text}</span>`;
@@ -75,6 +97,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Affichage de la section profil
+  function renderProfile() {
+    // Exemple de contenu profil (à personnaliser)
+    profileSection.innerHTML = `
+      <h2>Mon Profil</h2>
+      <p>Nom : Utilisateur</p>
+      <p>Email : utilisateur@example.com</p>
+      <button id="edit-profile-btn">Modifier le profil</button>
+    `;
+  }
+
   // Ajout d'une tâche
   function addTask() {
     const text = taskInput.value.trim();
@@ -83,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       taskInput.value = "";
       saveTasks();
       renderTasks();
+      sendNotification(text);
     }
   }
 
@@ -118,7 +152,17 @@ document.addEventListener("DOMContentLoaded", () => {
       filters.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentFilter = btn.dataset.filter;
-      renderTasks();
+      if (currentFilter === "profile") {
+        // Masquer la section To-Do et afficher le profil
+        todoSection.style.display = "none";
+        profileSection.classList.remove("hidden");
+        renderProfile();
+      } else {
+        // Afficher la section To-Do et masquer le profil
+        profileSection.classList.add("hidden");
+        todoSection.style.display = "block";
+        renderTasks();
+      }
     });
   });
 
@@ -134,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateDate();
   renderTasks();
   updateProgress();
+  requestNotificationPermission();
 
   // Retirer le splash screen et afficher le contenu principal après 5 secondes
   setTimeout(() => {
