@@ -8,63 +8,56 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-
   <!-- Splash Screen -->
-  <div id="splash-screen">
-    <div id="splash-content">
-      <img src="icons/icon-512.png" alt="Logo Karpov" id="splash-logo" />
-      <p id="splash-text">Appuyez pour continuer</p>
-    </div>
+  <div id="splash-screen" onclick="hideSplashScreen()">
+    <img src="icons/icon-512.png" alt="Logo Karpov" id="splash-logo">
+    <p>Appuyez pour continuer</p>
   </div>
-
-  <!-- Contenu principal -->
-  <div id="main-content" style="display: none;">
+  
+  <div class="container" id="main-content" style="display:none;">
     <header>
       <h1>Karpov ✅</h1>
       <p id="date"></p>
     </header>
     
-    <!-- Barre de progression -->
     <div class="progress-container">
       <div class="progress-bar"></div>
     </div>
-
-    <!-- Input et boutons -->
+    
     <div class="input-container">
       <input type="text" id="task-input" placeholder="Ajoute une tâche..." autocomplete="off">
       <button id="add-task-btn">➕</button>
       <button id="voice-btn">🎤</button>
     </div>
-
-    <!-- Navigation -->
-    <nav>
-      <button class="nav-btn active" data-tab="tasks">📋 To-Do</button>
-      <button class="nav-btn" data-tab="profile">👤 Profil</button>
-      <button class="nav-btn" data-tab="settings">⚙️ Paramètres</button>
-    </nav>
-
-    <!-- Onglets -->
-    <div id="tasks-tab" class="tab active">
-      <ul id="task-list"></ul>
-      <button id="clear-all">🗑️ Tout supprimer</button>
+    
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Toutes</button>
+      <button class="filter-btn" data-filter="active">Actives</button>
+      <button class="filter-btn" data-filter="completed">Terminées</button>
     </div>
     
-    <div id="profile-tab" class="tab">
-      <h2>Profil</h2>
-      <p>Nom : <span id="user-name">Utilisateur</span></p>
-      <button id="edit-profile">Modifier</button>
-    </div>
-
-    <div id="settings-tab" class="tab">
+    <ul id="task-list"></ul>
+    <button id="clear-all">🗑️ Tout supprimer</button>
+    
+    <div id="settings">
       <h2>Paramètres</h2>
-      <label>
-        <input type="checkbox" id="dark-mode-toggle">
-        Activer le mode sombre
-      </label>
+      <button id="toggle-theme">Basculer Mode Jour/Nuit</button>
+    </div>
+    
+    <div id="profile">
+      <h2>Profil</h2>
+      <img src="icons/user.png" id="profile-pic" alt="Avatar">
+      <input type="text" id="profile-name" placeholder="Votre nom">
     </div>
   </div>
 
-  <script defer src="script.js"></script>
-
+  <script defer src="scripts.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('Service Worker enregistré', reg))
+        .catch(err => console.error('Erreur SW:', err));
+    }
+  </script>
 </body>
 </html>
