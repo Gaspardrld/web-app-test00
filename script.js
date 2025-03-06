@@ -5,11 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const voiceBtn = document.getElementById("voice-btn");
   const taskList = document.getElementById("task-list");
   const clearAllBtn = document.getElementById("clear-all");
-  const filters = document.querySelectorAll(".filter-btn");
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const tabBtns = document.querySelectorAll(".tab-btn");
   const dateElement = document.getElementById("date");
   const progressBar = document.querySelector(".progress-bar");
-  const profileSection = document.getElementById("profile-section");
   const todoSection = document.getElementById("todo-section");
+  const profileSection = document.getElementById("profile-section");
+  const settingsSection = document.getElementById("settings-section");
+  const themeToggle = document.getElementById("theme-toggle");
+  const notifToggle = document.getElementById("notif-toggle");
+  const resetDataBtn = document.getElementById("reset-data-btn");
 
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   let currentFilter = "all";
@@ -53,9 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgress();
   }
 
-  // Rendu des tâches (uniquement si filtre est différent de "profile")
+  // Rendu des tâches (pour la section To-Do)
   function renderTasks() {
-    if (currentFilter === "profile") return; // Ne pas afficher les tâches en mode profil
     taskList.innerHTML = "";
     tasks.forEach((task, index) => {
       if ((currentFilter === "active" && task.completed) ||
@@ -64,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement("li");
       li.className = "task-item" + (task.completed ? " completed" : "");
       li.innerHTML = `<span>${task.text}</span>`;
-
+      
       // Bouton de basculement d'état
       const toggleBtn = document.createElement("button");
       toggleBtn.innerHTML = "✅";
@@ -97,15 +101,45 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Affichage de la section profil
+  // Rendu de la section Profil
   function renderProfile() {
-    // Exemple de contenu profil (à personnaliser)
     profileSection.innerHTML = `
       <h2>Mon Profil</h2>
       <p>Nom : Utilisateur</p>
       <p>Email : utilisateur@example.com</p>
       <button id="edit-profile-btn">Modifier le profil</button>
     `;
+  }
+
+  // Gestion du mode (Nuit/Jour)
+  function toggleTheme() {
+    if (document.body.classList.contains("dark-mode")) {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+    } else {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+    }
+  }
+
+  // Appliquer le thème sauvegardé
+  function applyTheme() {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+      if (themeToggle) themeToggle.checked = true;
+    } else {
+      document.body.classList.remove("dark-mode");
+      if (themeToggle) themeToggle.checked = false;
+    }
+  }
+
+  // Réinitialiser les données
+  function resetData() {
+    if (confirm("Voulez-vous vraiment réinitialiser toutes les données ?")) {
+      localStorage.clear();
+      location.reload();
+    }
   }
 
   // Ajout d'une tâche
@@ -116,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
       taskInput.value = "";
       saveTasks();
       renderTasks();
-      sendNotification(text);
+      if (notifToggle.checked) sendNotification(text);
     }
   }
 
@@ -146,22 +180,33 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // Gestion des filtres
-  filters.forEach(btn => {
+  // Gestion des filtres To-Do
+  filterBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      filters.forEach(b => b.classList.remove("active"));
+      filterBtns.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentFilter = btn.dataset.filter;
-      if (currentFilter === "profile") {
-        // Masquer la section To-Do et afficher le profil
-        todoSection.style.display = "none";
-        profileSection.classList.remove("hidden");
-        renderProfile();
-      } else {
-        // Afficher la section To-Do et masquer le profil
-        profileSection.classList.add("hidden");
-        todoSection.style.display = "block";
+      renderTasks();
+    });
+  });
+
+  // Gestion des onglets de navigation
+  tabBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const tab = btn.dataset.tab;
+      // Masquer toutes les sections
+      document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
+      // Afficher la section correspondante
+      if (tab === "todo") {
+        document.getElementById("todo-section").classList.remove("hidden");
         renderTasks();
+      } else if (tab === "profile") {
+        document.getElementById("profile-section").classList.remove("hidden");
+        renderProfile();
+      } else if (tab === "settings") {
+        document.getElementById("settings-section").classList.remove("hidden");
       }
     });
   });
@@ -173,12 +218,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   clearAllBtn.addEventListener("click", clearAllTasks);
   voiceBtn.addEventListener("click", startSpeechRecognition);
+  if (themeToggle) themeToggle.addEventListener("change", toggleTheme);
+  if (resetDataBtn) resetDataBtn.addEventListener("click", resetData);
 
   // Initialisation
   updateDate();
   renderTasks();
   updateProgress();
   requestNotificationPermission();
+  applyTheme();
+
+  // Afficher l'onglet To-Do par défaut
+  document.getElementById("todo-section").classList.remove("hidden");
 
   // Retirer le splash screen et afficher le contenu principal après 5 secondes
   setTimeout(() => {
