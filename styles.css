@@ -14,9 +14,7 @@ body {
   height: 100vh;
   color: #fff;
   overflow: hidden;
-  background-color: #000;
 }
-
 
 /* --- Main Content --- */
 #main-content {
@@ -42,6 +40,7 @@ header h1 {
   color: #ffcc00;
   margin-bottom: 5px;
 }
+
 header p {
   font-size: 1em;
   opacity: 0.8;
@@ -56,6 +55,7 @@ header p {
   margin-bottom: 15px;
   height: 10px;
 }
+
 .progress-bar {
   height: 10px;
   width: 0%;
@@ -69,6 +69,7 @@ header p {
   justify-content: space-around;
   margin-bottom: 15px;
 }
+
 .tab-btn {
   background: transparent;
   border: 1px solid #ffcc00;
@@ -78,6 +79,7 @@ header p {
   cursor: pointer;
   transition: background 0.3s, color 0.3s;
 }
+
 .tab-btn.active, .tab-btn:hover {
   background: #ffcc00;
   color: #1f1c2c;
@@ -87,6 +89,7 @@ header p {
 section {
   display: none;
 }
+
 section.active {
   display: block;
 }
@@ -96,7 +99,9 @@ section.active {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
+  align-items: center;
 }
+
 input {
   flex: 1;
   padding: 12px;
@@ -104,6 +109,7 @@ input {
   border-radius: 5px;
   font-size: 1em;
 }
+
 button {
   background: #ffcc00;
   border: none;
@@ -113,8 +119,13 @@ button {
   font-size: 1em;
   transition: background 0.3s;
 }
+
 button:hover {
   background: #ffaa00;
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 /* --- Filtres To-Do --- */
@@ -123,6 +134,7 @@ button:hover {
   justify-content: space-around;
   margin-bottom: 15px;
 }
+
 .filter-btn {
   background: transparent;
   border: 1px solid #ffcc00;
@@ -131,6 +143,7 @@ button:hover {
   color: #ffcc00;
   transition: background 0.3s, color 0.3s;
 }
+
 .filter-btn.active, .filter-btn:hover {
   background: #ffcc00;
   color: #1f1c2c;
@@ -143,6 +156,7 @@ button:hover {
   overflow-y: auto;
   margin-bottom: 15px;
 }
+
 .task-item {
   background: rgba(255, 255, 255, 0.15);
   padding: 12px;
@@ -154,9 +168,11 @@ button:hover {
   transition: transform 0.2s;
   position: relative;
 }
+
 .task-item:hover {
   transform: scale(1.02);
 }
+
 .task-item.completed {
   text-decoration: line-through;
   opacity: 0.6;
@@ -168,8 +184,13 @@ button:hover {
   background: #ff4444;
   transition: background 0.3s;
 }
+
 #clear-all:hover {
   background: #cc0000;
+}
+
+#clear-all:active {
+  background: #bb3333;
 }
 
 /* --- Section Profil --- */
@@ -177,11 +198,13 @@ button:hover {
   text-align: left;
   padding: 15px;
 }
+
 #profile-section h2 {
   font-size: 2em;
   margin-bottom: 10px;
   color: #ffcc00;
 }
+
 #profile-section p {
   font-size: 1em;
   margin-bottom: 8px;
@@ -192,20 +215,24 @@ button:hover {
   text-align: left;
   padding: 15px;
 }
+
 #settings-section h2 {
   font-size: 2em;
   margin-bottom: 10px;
   color: #ffcc00;
 }
+
 .setting-item {
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .setting-item label {
   font-size: 1em;
 }
+
 .setting-item input[type="checkbox"] {
   width: 20px;
   height: 20px;
@@ -217,46 +244,63 @@ button:hover {
     width: 95%;
     padding: 15px;
   }
+
   header h1 {
     font-size: 1.8em;
   }
+
   .input-container {
     flex-direction: column;
     gap: 8px;
   }
+
   .input-container input,
   .input-container button {
     width: 100%;
     font-size: 1em;
     padding: 10px;
   }
+
   .nav-tabs {
     flex-direction: column;
     gap: 8px;
   }
+
   .tab-btn {
     width: 100%;
     padding: 10px;
     font-size: 1em;
   }
+
   #clear-all {
     font-size: 1em;
     padding: 10px;
   }
+
   .update-banner {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffcc00;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffcc00;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.5s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(-50%) translateY(20px);
+    }
+    to {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
 
   .update-banner button {
     background: black;
@@ -266,9 +310,8 @@ button:hover {
     cursor: pointer;
     border-radius: 5px;
   }
-  
+
   .update-banner button:hover {
     background: #222;
   }
-
 }
